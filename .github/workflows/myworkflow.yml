@@ -24,16 +24,16 @@ jobs:
            echo "Hi I Love Biryani"
            echo "Current Time is Date"
            sleep 10
-    job3: 
+  job3: 
         name: JOB3
         needs: job1
         runs-on: ubuntu-latest
         steps:
           - name: Job with single Dependency
             run: sleep 10
-     job4: 
+  job4: 
         name: JOB4
-        needs: [job1, jon2, job3]
+        needs: [job1, job2, job3]
         runs-on: ubuntu-latest
         steps:
           - name: Job with single Dependency
