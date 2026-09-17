@@ -1,49 +1,61 @@
 name: my-first-workflow
 # To get trigger on every push in the repo in any branch
 on:
-  schedule:
-    - cron: '*/5 * * * *'
-  # workflow_dispatch:
-  # push:
+  # schedule:
+  #   - cron: '*/5 * * * *'
+  # # workflow_dispatch:
+   push:
 jobs:
   job1:
      name: JOB1
      runs-on: ubuntu-latest
      steps:
-       - name: Running Single command in Job1
-         run: echo "Hi this is my first Github workflow"
-       - name: Checking OS Relaese for GitHub Hosted Runner
-         run: cat /etc/os-release
-       - name: Calling Sleep
-         run: sleep 10
-  job2: 
-     name: JOB2
-     runs-on: ubuntu-latest
-     steps:
-       - name: Checking the host name for runner
-         run: hostname
-       - name: Running multiple commands
-         run: |
-           echo "Hi I Love Biryani"
-           echo "Current Time is Date"
-           sleep 10
-  job3: 
-        name: JOB3
-        needs: job1
-        runs-on: windows-latest
-        steps:
-          - name: Job with single Dependency
-            run: sleep 10
-          - name: Checking Runner info
-            shell: pwsh
-            run: get-computerinfo
-  job4: 
-        name: JOB4
-        needs: [job1, job2, job3]
-        runs-on: macos-latest
-        steps:
-          - name: Job with single Dependency
-            run: sleep 10  
-          - name: Checking Runner info
-            run: sw_vers
+        - name: step-1
+          run: |
+             pwd
+             ls -ltr
+             hostname
+        - name: step-2Checkout
+          uses: actions/checkout@v6.1.0
+        - name: step-3
+          run: |
+             pwd
+             ls -ltr
+             hostname
+  #      - name: Running Single command in Job1
+  #        run: echo "Hi this is my first Github workflow"
+  #      - name: Checking OS Relaese for GitHub Hosted Runner
+  #        run: cat /etc/os-release
+  #      - name: Calling Sleep
+  #        run: sleep 10
+  # job2: 
+  #    name: JOB2
+  #    runs-on: ubuntu-latest
+  #    steps:
+  #      - name: Checking the host name for runner
+  #        run: hostname
+  #      - name: Running multiple commands
+  #        run: |
+  #          echo "Hi I Love Biryani"
+  #          echo "Current Time is Date"
+  #          sleep 10
+  # job3: 
+  #       name: JOB3
+  #       needs: job1
+  #       runs-on: windows-latest
+  #       steps:
+  #         - name: Job with single Dependency
+  #           run: sleep 10
+  #         - name: Checking Runner info
+  #           shell: pwsh
+  #           run: get-computerinfo
+  # job4: 
+  #       name: JOB4
+  #       needs: [job1, job2, job3]
+  #       runs-on: macos-latest
+  #       steps:
+          # - name: Job with single Dependency
+          #   run: sleep 10  
+          # - name: Checking Runner info
+          #   run: sw_vers
         
