@@ -20,13 +20,35 @@ jobs:
         - name: step-3
           run: |
              echo 'pwd'>> myartifact.txt
-             ls -ltr
-             hostname
+             mkdir aetifact
+             echo 'ls -ltr' >> artifacts/list.txt
+             echo 'hostname' >> artifacts/hostname.txt
         - name: Uplode Single file
           uses: actions/upload-artifact@v7
           with:
             name: single_file
             path: ./myartifact.txt
+        - name: uplode from directory 
+          uses: actions/upload-artifact@v7
+          with:
+            name: directory_artifact
+            path: artifact/
+        - name: Uplode from multiple paths
+          uses: actions/upload-artifact@v7
+          with:
+            name: multiple_paths
+            path: | 
+               ./myartifact.txt
+               artifacts/    
+        - name: Uplode from multiple paths with exclusion
+          uses: actions/upload-artifact@v7
+          with:
+            name: multiple_paths_with_exclusion
+            path: | 
+               ./myartifact.txt
+               artifacts/
+               !**/hostname.txt
+               
   #      - name: Running Single command in Job1
   #        run: echo "Hi this is my first Github workflow"
   #      - name: Checking OS Relaese for GitHub Hosted Runner
