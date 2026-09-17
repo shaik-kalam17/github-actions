@@ -31,7 +31,7 @@ jobs:
         - name: uplode from directory 
           uses: actions/upload-artifact@v7
           with:
-            name: directory_artifact
+            name: directory_artifacts
             path: artifact/
         - name: Uplode from multiple paths
           uses: actions/upload-artifact@v7
@@ -81,7 +81,7 @@ jobs:
       - name: Download directory
         uses: actions/download-artifact@v8
         with: 
-          name: directory_artifact
+          name: directory_artifacts
       - name: checking current directory post download
         run: |
            pwd
