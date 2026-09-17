@@ -51,7 +51,7 @@ jobs:
           
   job2:
     name: JOB2
-    #needs: job1
+    needs: job1
     runs-on: ubuntu-latest
     steps:
       - name: checking current directory
@@ -66,8 +66,26 @@ jobs:
         run: |
            pwd
            ls -ltr
-      - name: Calling Sleep
-        run: sleep 10          
+      # - name: Calling Sleep
+      #   run: sleep 10
+
+  job3:
+    name: JOB3
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+      - name: checking current directory
+        run: |
+          pwd
+          ls -ltr
+      - name: Download directory
+        uses: actions/download-artifact@v8
+        with: 
+          name: directory_artifact
+      - name: checking current directory post download
+        run: |
+           pwd
+           ls -ltr
   #      - name: Running Single command in Job1
   #        run: echo "Hi this is my first Github workflow"
   #      - name: Checking OS Relaese for GitHub Hosted Runner
