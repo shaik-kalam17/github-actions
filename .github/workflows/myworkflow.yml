@@ -52,7 +52,7 @@ jobs:
     name: JOB2
     runs-on: ubuntu-latest
     steps:
-      - name: checking current dir
+      - name: checking current directory
         run: |
           pwd
           ls -ltr
@@ -60,7 +60,7 @@ jobs:
         uses: actions/download-artifact@v8
         with: 
           name: single_file
-      - name: checking current dir post download
+      - name: checking current directory post download
         run: |
            pwd
            ls -ltr                   
