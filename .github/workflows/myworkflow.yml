@@ -19,7 +19,7 @@ jobs:
           uses: actions/checkout@v6.1.0
         - name: step-3
           run: |
-             echo 'pwd'>> myartifact.txt
+             echo 'pwd' >> myartifact.txt
              mkdir aetifact
              echo 'ls -ltr' >> artifacts/list.txt
              echo 'hostname' >> artifacts/hostname.txt
