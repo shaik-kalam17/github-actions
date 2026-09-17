@@ -20,7 +20,7 @@ jobs:
         - name: step-3
           run: |
              echo `pwd` >> myartifact.txt
-             mkdir aetifacts
+             mkdir -p artifacts
              echo `ls -ltr` >> artifacts/list.txt
              echo `hostname` >> artifacts/hostname.txt
         - name: Uplode Single file
