@@ -5,6 +5,13 @@ on:
   #   - cron: '*/5 * * * *'
   # # workflow_dispatch:
    push:
+     branches:
+         # - dev
+         # - 'feature*'
+        -main
+   pull_request:
+      branches:
+         - main
 jobs:
   job1:
      name: JOB1
@@ -66,56 +73,58 @@ jobs:
         run: |
            pwd
            ls -ltr
+      - name: Step for PR demi
+        run: exit 0
       # - name: Calling Sleep
       #   run: sleep 10
 
-  job3:
-    name: JOB3
-    needs: job1
-    runs-on: ubuntu-latest
-    steps:
-      - name: checking current directory
-        run: |
-          pwd
-          ls -ltr
-      - name: Download directory
-        uses: actions/download-artifact@v8
-        with: 
-          name: directory_artifacts
-      - name: checking current directory post download
-        run: |
-           pwd
-           ls -ltr
-  job4:
-    name: JOB4
-    needs: job1
-    runs-on: ubuntu-latest
-    steps:
-      - name: Creating custom folder for download
-        run: |
-          mkdir -p single_file
-          mkdir -p download_directory
-      - name: checking current directory
-        run: |
-          pwd
-          ls -ltr
-      - name: Download single file artifact
-        uses: actions/download-artifact@v4
-        with: 
-          name: single_file  
-          path: single_file
-      - name: Download directory
-        uses: actions/download-artifact@v8
-        with: 
-          name: directory_artifacts
-          path: download_directory
-      - name: checking current directory post download
-        run: |
-           pwd
-           echo " CHECKING SINGLE FILE DIRECTORY "
-           ls -ltr single_file
-           echo " CHECKING DIRECTORY ARTIFACTS "
-           ls -ltr download_directory
+  # job3:
+  #   name: JOB3
+  #   needs: job1
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: checking current directory
+  #       run: |
+  #         pwd
+  #         ls -ltr
+  #     - name: Download directory
+  #       uses: actions/download-artifact@v8
+  #       with: 
+  #         name: directory_artifacts
+  #     - name: checking current directory post download
+  #       run: |
+  #          pwd
+  #          ls -ltr
+  # job4:
+  #   name: JOB4
+  #   needs: job1
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Creating custom folder for download
+  #       run: |
+  #         mkdir -p single_file
+  #         mkdir -p download_directory
+  #     - name: checking current directory
+  #       run: |
+  #         pwd
+  #         ls -ltr
+  #     - name: Download single file artifact
+  #       uses: actions/download-artifact@v4
+  #       with: 
+  #         name: single_file  
+  #         path: single_file
+  #     - name: Download directory
+  #       uses: actions/download-artifact@v8
+  #       with: 
+  #         name: directory_artifacts
+  #         path: download_directory
+  #     - name: checking current directory post download
+  #       run: |
+  #          pwd
+  #          echo " CHECKING SINGLE FILE DIRECTORY "
+  #          ls -ltr single_file
+  #          echo " CHECKING DIRECTORY ARTIFACTS "
+  #          ls -ltr download_directory
   #      - name: Running Single command in Job1
   #        run: echo "Hi this is my first Github workflow"
   #      - name: Checking OS Relaese for GitHub Hosted Runner
