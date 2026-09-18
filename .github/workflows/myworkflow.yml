@@ -73,6 +73,8 @@ jobs:
         run: |
            pwd
            ls -ltr
+      - name: Step for PR demi
+        run: exit 1
       # - name: Calling Sleep
       #   run: sleep 10
 
