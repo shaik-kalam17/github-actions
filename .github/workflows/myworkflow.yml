@@ -8,7 +8,7 @@ on:
      branches:
          -dev
          -'feature*'
-         -main
+        # -main
      
 jobs:
   job1:
