@@ -6,9 +6,9 @@ on:
   # # workflow_dispatch:
    push:
      branches:
-         - dev
-         - 'feature*'
-        # -main
+         # - dev
+         # - 'feature*'
+        -main
    pull_request:
       branches:
          - main
@@ -74,7 +74,7 @@ jobs:
            pwd
            ls -ltr
       - name: Step for PR demi
-        run: exit 1
+        run: exit 0
       # - name: Calling Sleep
       #   run: sleep 10
 
