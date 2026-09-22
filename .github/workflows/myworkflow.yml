@@ -83,13 +83,17 @@ jobs:
       # - name: Calling Sleep
       #   run: sleep 10
 
-  # job3:
-  #   name: JOB3
+  job3:
+     name: JOB3
   #   needs: job1
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: checking current directory
-  #       run: |
+     runs-on: ubuntu-latest
+     steps:
+       - name: Referrimg context or in-build variables
+         run: |
+            echo "[INFO] Triggering by ${{ github.event_name}}."
+            echo "[INFO] New changes are added by ${{ github.actor }} in ${{ github.ref_name }} branch."
+            echo "[INFO] Current Step is running on $ {{ runner.os }}."
+            echo "[INFO] Current JOB ID is ${{ job.check_run_id }}."
   #         pwd
   #         ls -ltr
   #     - name: Download directory
