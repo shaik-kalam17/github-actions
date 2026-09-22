@@ -5,6 +5,16 @@ on:
   #   - cron: '*/5 * * * *'
   # # workflow_dispatch:
    push:
+    branches:
+      - main
+   pull_request:
+     branches:
+      - main
+env:
+  ENV_TYPE: Dev
+  APP_USER: Thinkx
+  APP_PORT: 80
+  
 jobs:
   job1:
      name: JOB1
@@ -28,94 +38,102 @@ jobs:
           with:
             name: single_file
             path: ./myartifact.txt
-        - name: uplode from directory 
-          uses: actions/upload-artifact@v7
-          with:
-            name: directory_artifacts
-            path: artifacts/
-        - name: Uplode from multiple paths
-          uses: actions/upload-artifact@v7
-          with:
-            name: multiple_paths
-            path: | 
-               ./myartifact.txt
-               artifacts/    
-        - name: Uplode from multiple paths with exclusion
-          uses: actions/upload-artifact@v7
-          with:
-            name: multiple_paths_with_exclusion
-            path: | 
-               ./myartifact.txt
-               artifacts/
-               !**/hostname.txt
+        # - name: uplode from directory 
+        #   uses: actions/upload-artifact@v7
+        #   with:
+        #     name: directory_artifacts
+        #     path: artifacts/
+        # - name: Uplode from multiple paths
+        #   uses: actions/upload-artifact@v7
+        #   with:
+        #     name: multiple_paths
+        #     path: | 
+        #        ./myartifact.txt
+        #        artifacts/    
+        # - name: Uplode from multiple paths with exclusion
+        #   uses: actions/upload-artifact@v7
+        #   with:
+        #     name: multiple_paths_with_exclusion
+        #     path: | 
+        #        ./myartifact.txt
+        #        artifacts/
+        #        !**/hostname.txt
           
   job2:
     name: JOB2
     needs: job1
     runs-on: ubuntu-latest
     steps:
-      - name: checking current directory
-        run: |
-          pwd
-          ls -ltr
+      # - name: checking current directory
+      #   run: |
+      #     pwd
+      #     ls -ltr
       - name: Download single file artifact
         uses: actions/download-artifact@v4
         with: 
           name: single_file
-      - name: checking current directory post download
+      - name: 
         run: |
-           pwd
-           ls -ltr
+           echo "[INFO] Running Deploynment for $ENV_TYPE with user $APP_USER"
+           echo "[INFO] Once deploymenty application is accessible on port $APP_PORT."
+      - name:
+        run: |
+           echo "[INFO] Application password is ${{ secrets.APP_PASSEORD }}"
+          
       # - name: Calling Sleep
       #   run: sleep 10
 
   job3:
-    name: JOB3
-    needs: job1
-    runs-on: ubuntu-latest
-    steps:
-      - name: checking current directory
-        run: |
-          pwd
-          ls -ltr
-      - name: Download directory
-        uses: actions/download-artifact@v8
-        with: 
-          name: directory_artifacts
-      - name: checking current directory post download
-        run: |
-           pwd
-           ls -ltr
-  job4:
-    name: JOB4
-    needs: job1
-    runs-on: ubuntu-latest
-    steps:
-      - name: Creating custom folder for download
-        run: |
-          mkdir -p single_file
-          mkdir -p download_directory
-      - name: checking current directory
-        run: |
-          pwd
-          ls -ltr
-      - name: Download single file artifact
-        uses: actions/download-artifact@v4
-        with: 
-          name: single_file  
-          path: single_file
-      - name: Download directory
-        uses: actions/download-artifact@v8
-        with: 
-          name: directory_artifacts
-          path: download_directory
-      - name: checking current directory post download
-        run: |
-           pwd
-           echo " CHECKING SINGLE FILE DIRECTORY "
-           ls -ltr single_file
-           echo " CHECKING DIRECTORY ARTIFACTS "
-           ls -ltr download_directory
+     name: JOB3
+  #   needs: job1
+     runs-on: ubuntu-latest
+     steps:
+       - name: Referrimg context or in-build variables
+         run: |
+            echo "[INFO] Triggering by ${{ github.event_name}}."
+            echo "[INFO] New changes are added by ${{ github.actor }} in ${{ github.ref_name }} branch."
+            echo "[INFO] Current Step is running on ${{ runner.os }}."
+            echo "[INFO] Current JOB ID is ${{ job.check_run_id }}."
+  #         pwd
+  #         ls -ltr
+  #     - name: Download directory
+  #       uses: actions/download-artifact@v8
+  #       with: 
+  #         name: directory_artifacts
+  #     - name: checking current directory post download
+  #       run: |
+  #          pwd
+  #          ls -ltr
+  # job4:
+  #   name: JOB4
+  #   needs: job1
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Creating custom folder for download
+  #       run: |
+  #         mkdir -p single_file
+  #         mkdir -p download_directory
+  #     - name: checking current directory
+  #       run: |
+  #         pwd
+  #         ls -ltr
+  #     - name: Download single file artifact
+  #       uses: actions/download-artifact@v4
+  #       with: 
+  #         name: single_file  
+  #         path: single_file
+  #     - name: Download directory
+  #       uses: actions/download-artifact@v8
+  #       with: 
+  #         name: directory_artifacts
+  #         path: download_directory
+  #     - name: checking current directory post download
+  #       run: |
+  #          pwd
+  #          echo " CHECKING SINGLE FILE DIRECTORY "
+  #          ls -ltr single_file
+  #          echo " CHECKING DIRECTORY ARTIFACTS "
+  #          ls -ltr download_directory
   #      - name: Running Single command in Job1
   #        run: echo "Hi this is my first Github workflow"
   #      - name: Checking OS Relaese for GitHub Hosted Runner
